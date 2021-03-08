@@ -4,7 +4,7 @@ import os
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--img_path', required=True, type=str, help='Image path')
-parser.add_argument('--new_width', type=int, help='New ascii image width')
+parser.add_argument('--new_width', type=int, default=100, help='New ascii image width')
 parser.add_argument('--new_ascii', default=False, action='store_true',help='New ascii format')
 args = parser.parse_args()
 
@@ -12,7 +12,7 @@ if args.new_ascii:
     NEW_ASCII_CHARS = [219, 178, 177, 176]
     ASCII_CHARS = list(map(chr, NEW_ASCII_CHARS))
 else:
-    ASCII_CHARS = ['@', '#', 'S', '%', '?', '*', '+', ';', ':', ',', '.']
+    ASCII_CHARS = ['@', '&', '#', 'S', '%', '?', '!', '*', '+', '-', ';', ':', '¨', ',', '.']
 
 def resize_image(image, new_width=100):
     
@@ -31,8 +31,10 @@ def image_toGrayScale(image):
 
 def image_toASCII(image):
     pixels = image.getdata()
-    #characters = "".join(ASCII_CHARS[pixel//65] for pixel in pixels)
-    characters = "".join(ASCII_CHARS[pixel//65] for pixel in pixels)
+    if args.new_ascii:
+        characters = "".join(ASCII_CHARS[pixel//65] for pixel in pixels)
+    else:
+        characters = "".join(ASCII_CHARS[pixel//18] for pixel in pixels)
     return characters
 
 def main(img_path, new_width=100):
@@ -53,9 +55,7 @@ def main(img_path, new_width=100):
     pixel_count = len(ascii_img)
     new_ascii_img = '\n'.join(ascii_img[i:(i+new_width)] for i in range(0, pixel_count, new_width))
 
-    print('Printing new ASCII image...')
-    print(new_ascii_img)
-
+    print('Saving ascii to text file')
     with open('./' + img_path.split(os.sep)[-1].split('.')[0] + '_ascii.txt', 'w') as fp:
         fp.writelines(new_ascii_img)
 
