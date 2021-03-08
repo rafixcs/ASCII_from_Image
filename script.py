@@ -4,6 +4,7 @@ import os
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--img_path', required=True, type=str, help='Image path')
+parser.add_argument('--out_dir', type=str, default='./', help='Output txt dir')
 parser.add_argument('--new_width', type=int, default=100, help='New ascii image width')
 parser.add_argument('--new_ascii', default=False, action='store_true',help='New ascii format')
 args = parser.parse_args()
@@ -56,7 +57,7 @@ def main(img_path, new_width=100):
     new_ascii_img = '\n'.join(ascii_img[i:(i+new_width)] for i in range(0, pixel_count, new_width))
 
     print('Saving ascii to text file')
-    with open('./' + img_path.split(os.sep)[-1].split('.')[0] + '_ascii.txt', 'w') as fp:
+    with open(args.out_dir + img_path.split(os.sep)[-1].split('.')[0] + '_ascii.txt', 'w') as fp:
         fp.writelines(new_ascii_img)
 
     
