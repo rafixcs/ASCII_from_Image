@@ -8,4 +8,4 @@ Original Image:
 
 ASCII art image:
 
-![One-Piece ASCII](https://github.com/rafixcs/ASCII_from_Image/blob/main/asset/one_piece_ascii.png)
+![One-Piece ASCII](https://github.com/rafixcs/ASCII_from_Image/blob/main/asset/one_piece_ascii.PNG)
